@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
+import GlobalStyles from "./components/globalstyles/globalstyles";
 
 ReactDOM.render(
     <div>
+        <GlobalStyles/>
         <h1>Hello World</h1>
     </div>
     , document.getElementById('root'));
