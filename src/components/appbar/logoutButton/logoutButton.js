@@ -9,6 +9,7 @@ const LogoutButton = styled(Button)`
   
   :hover {
     border-color: ${props => props.theme.warning};
+    opacity: 1;
   }
 `;
 

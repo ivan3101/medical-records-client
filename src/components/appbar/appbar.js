@@ -14,10 +14,10 @@ const Appbar = (props) => {
       width: 100%;
       height: 70px;
       padding: 0.25em 1em;
-      background-color: ${props => props.theme.main};
+      background-color: ${props =>props.theme.main};
       display: flex;
-      align-items: center;
-      `;
+      align-items: center;    
+`;
 
     return (
         <StyledAppbar>

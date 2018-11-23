@@ -3,13 +3,15 @@ import styled from "styled-components";
 const Button = styled.button`
   padding: 0.45rem 0.80rem;
   font-size: 0.75rem;
-  background-color: ${props => props.theme.action};
-  border: 1px solid ${props => props.theme.action}; 
+  background-color: ${props => props.theme.primary};
+  border: 1px solid ${props => props.theme.primary}; 
   border-radius: 6px;
   cursor: pointer;
+  text-decoration: underline;
+
 
   :hover {
-    text-decoration: underline;
+     opacity: 0.7;
   } 
 `;
 

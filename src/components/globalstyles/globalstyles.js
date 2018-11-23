@@ -2,7 +2,7 @@ import {createGlobalStyle} from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
  @import url('https://fonts.googleapis.com/css?family=Quicksand');
-
+  
  html {
   box-sizing: border-box;
   font-size: 16px;
