@@ -5,7 +5,6 @@ const CardGrid = styled.div`
   grid-template-columns: repeat(6, 1fr);
   grid-column-gap: 1.2rem;
   grid-row-gap: 1rem;
-  grid-auto-rows: auto;
 `;
 
 export default CardGrid;

@@ -4,12 +4,7 @@ import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";
 import configureStore from './stores/configStore';
 import ThemeProviderConnected from "./components/themeProviderConnected/themeProviderConnected";
-import Container from "./components/container/container";
 import GlobalStyles from "./components/globalstyles/globalstyles";
-import Card from "./components/card/card";
-import CardHeader from "./components/card/cardHeader/cardHeader";
-import CardBody from "./components/card/cardBody/cardBody";
-import CardGrid from "./components/cardGrid/cardGrid";
 
 const store = configureStore();
 
@@ -18,6 +13,7 @@ ReactDOM.render(
         <ThemeProviderConnected>
             <div>
                 <GlobalStyles/>
+
             </div>
         </ThemeProviderConnected>
     </Provider>
