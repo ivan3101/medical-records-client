@@ -1,7 +1,7 @@
 import {createGlobalStyle} from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
- @import url('https://fonts.googleapis.com/css?family=Quicksand');
+ //@import url('https://fonts.googleapis.com/css?family=Quicksand');
   
  html {
   box-sizing: border-box;

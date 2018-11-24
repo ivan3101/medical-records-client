@@ -5,6 +5,7 @@ import {Provider} from "react-redux";
 import configureStore from './stores/configStore';
 import ThemeProviderConnected from "./components/themeProviderConnected/themeProviderConnected";
 import GlobalStyles from "./components/globalstyles/globalstyles";
+import Appbar from "./components/appbar/appbar";
 
 const store = configureStore();
 
@@ -13,7 +14,7 @@ ReactDOM.render(
         <ThemeProviderConnected>
             <div>
                 <GlobalStyles/>
-
+                <Appbar/>
             </div>
         </ThemeProviderConnected>
     </Provider>
