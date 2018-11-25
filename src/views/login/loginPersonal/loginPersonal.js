@@ -6,13 +6,17 @@ import LoginCard from "../loginCard/loginCard";
 import CardHeader from "../../../components/card/cardHeader/cardHeader";
 import CardBody from "../../../components/card/cardBody/cardBody";
 import LoginContainer from "../loginContainer/loginContainer";
+import {connect} from "react-redux";
+import {loginPersonalFetch} from "../../../actions/auth.actions";
 
 const initialValues = {
     'nombreDeUsuario': '',
     'contraseña': ''
 };
 
-const LoginPersonal = () => {
+const LoginPersonal = (props) => {
+    const { match, dispatch, error, errorMsg, errorType } = props;
+
     return (
         <LoginContainer>
             <LoginCard>
@@ -27,9 +31,11 @@ const LoginPersonal = () => {
                             'contraseña': Yup.string().trim().required('Debe ingresar su contraseña')
                         })}
                         onSubmit={(values, formikActions) => {
-                            console.log(values);
+                            const { nombreDeUsuario, contraseña } = values;
+
+                            dispatch(loginPersonalFetch({ nombreDeUsuario, contraseña }));
                         }}
-                        render={LoginForm}
+                        render={props => <LoginForm {...props} match={match} submitError={error} errorMsg={errorMsg} errorType={errorType}/>}
                     />
                 </CardBody>
             </LoginCard>
@@ -37,4 +43,10 @@ const LoginPersonal = () => {
     );
 };
 
-export default LoginPersonal;
+const mapStateToProps = (state) => ({
+    error: state.auth.error,
+    errorMsg: state.auth.errorMsg,
+    errorType: state.auth.errorType
+});
+
+export default connect(mapStateToProps)(LoginPersonal);

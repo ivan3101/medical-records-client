@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from "react-redux";
-import configureStore from './stores/configStore';
+import store from './stores/configStore';
 import ThemeProviderConnected from "./components/themeProviderConnected/themeProviderConnected";
 import GlobalStyles from "./components/globalstyles/globalstyles";
 import Appbar from "./components/appbar/appbar";
-
-const store = configureStore();
+import {BrowserRouter as Router} from "react-router-dom";
+import TopLevelRoutes from "./routes/topLevelRoutes";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -15,6 +15,9 @@ ReactDOM.render(
             <div>
                 <GlobalStyles/>
                 <Appbar/>
+                <Router>
+                    <TopLevelRoutes/>
+                </Router>
             </div>
         </ThemeProviderConnected>
     </Provider>

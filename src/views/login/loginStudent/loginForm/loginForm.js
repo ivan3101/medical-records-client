@@ -8,22 +8,22 @@ import ValidationError from "../../../../components/form/validationError/validat
 import Button from "../../../../components/button/button";
 import isEmpty from 'lodash.isempty';
 import idx from "idx.macro";
-import Link from "../../../../components/link/link";
 import Flexbox from "../../flexbox/flexbox";
+import StyledLink from "../../../../components/link/link";
 
 const LoginForm = (props) => {
-    const { errors, isSubmiting, dirty, touched, status } = props;
+    const { errors, isSubmiting, dirty, touched, match, submitError, errorMsg, errorType } = props;
     const letraError = idx(errors, _ => _.cedula.letra);
     const numeroError = idx(errors, _ => _.cedula.numero);
     const letraTouched = idx(touched, _ => _.cedula.letra);
     const numeroTouched = idx(touched, _ => _.cedula.numero);
-    const submitError = idx(status, _ => _.error);
-    const errorMsg = idx(status, _ => _.message);
+    const baseUrl = '/' + match.url.split('/')[1];
+
 
     return (
         <Form>
             {
-                submitError && (<SubmitError>{ errorMsg }</SubmitError>)
+                submitError && errorType === 'student' && (<SubmitError>{ errorMsg }</SubmitError>)
             }
 
             <FormGroup>
@@ -58,7 +58,7 @@ const LoginForm = (props) => {
                 <ValidationError name={'contraseña'}/>
             </FormGroup>
             <Flexbox>
-                <Link>¿No eres un Estudiante? Haz click aquí</Link>
+                <StyledLink to={`${baseUrl}/personal`}>¿No eres un Estudiante? Haz click aquí</StyledLink>
                 <Button
                     type={'submit'}
                     disabled={isSubmiting || !isEmpty(errors) || !dirty}

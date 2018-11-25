@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import {lighten} from "polished";
+import {Link} from "react-router-dom";
 
-const Link = styled.a`
+const StyledLink = styled(Link)`
   color: ${lighten(0.2, '#0000EE')};
   text-decoration: underline;
   cursor: pointer;
@@ -13,4 +14,4 @@ const Link = styled.a`
   }
 `;
 
-export default Link;
+export default StyledLink;

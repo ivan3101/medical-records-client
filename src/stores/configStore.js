@@ -1,12 +1,18 @@
-import {combineReducers, createStore} from "redux";
-import themeReducer from "../reducers/theme.reducer";
+import {createStore, compose, applyMiddleware} from "redux";
+import reducers from "../reducers";
+import createSagaMiddleware from "redux-saga";
+import {sagas} from "../sagas";
 
+const sagaMiddleware = createSagaMiddleware();
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export default () => {
-    return createStore(
-        combineReducers({
-            theme: themeReducer
-        }),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-    );
-}
+const store = createStore(
+    reducers,
+    composeEnhancers(
+        applyMiddleware(sagaMiddleware)
+    )
+);
+
+sagaMiddleware.run(sagas);
+
+export default store;

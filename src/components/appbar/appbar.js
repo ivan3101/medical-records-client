@@ -6,9 +6,10 @@ import logo from "./logo/ujap.png"
 import LoginInfo from "./loginInfo/loginInfo";
 import Username from "./username/username";
 import LogoutButton from "./logoutButton/logoutButton";
+import {connect} from "react-redux";
 
 const Appbar = (props) => {
-    const { isLoggedIn, username } = props;
+    const { isLoggedIn, name } = props;
 
     const StyledAppbar = styled.header`
       width: 100%;
@@ -30,7 +31,7 @@ const Appbar = (props) => {
             {
                 isLoggedIn && (
                     <LoginInfo>
-                        <Username> { username } </Username>
+                        <Username> { name } </Username>
                         <LogoutButton> Cerrar Sesion </LogoutButton>
                     </LoginInfo>
                 )
@@ -39,4 +40,9 @@ const Appbar = (props) => {
     );
 };
 
-export default Appbar;
+const mapStateToProps = (state) => ({
+    isLoggedIn: state.auth.isAuthenticated,
+    name: state.auth.name
+});
+
+export default connect(mapStateToProps)(Appbar);

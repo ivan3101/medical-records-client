@@ -7,19 +7,17 @@ import Input from "../../../../components/form/input/input";
 import ValidationError from "../../../../components/form/validationError/validationError";
 import Button from "../../../../components/button/button";
 import isEmpty from 'lodash.isempty';
-import idx from "idx.macro";
 import Link from "../../../../components/link/link";
 import Flexbox from "../../flexbox/flexbox";
 
 const LoginForm = (props) => {
-    const { errors, isSubmiting, dirty, touched, status } = props;
-    const submitError = idx(status, _ => _.error);
-    const errorMsg = idx(status, _ => _.message);
+    const { errors, isSubmiting, dirty, touched, match, errorType, submitError, errorMsg } = props;
+    const baseUrl = '/' + match.url.split('/')[1];
 
     return (
         <Form>
             {
-                submitError && (<SubmitError>{ errorMsg }</SubmitError>)
+                submitError && errorType === 'personal' && (<SubmitError>{ errorMsg }</SubmitError>)
             }
 
             <FormGroup>
@@ -40,7 +38,7 @@ const LoginForm = (props) => {
                 <ValidationError name={'contraseña'}/>
             </FormGroup>
             <Flexbox>
-                <Link>¿Eres un Estudiante? Haz click aquí</Link>
+                <Link to={`${baseUrl}/student`}>¿Eres un Estudiante? Haz click aquí</Link>
                 <Button
                     type={'submit'}
                     disabled={isSubmiting || !isEmpty(errors) || !dirty}

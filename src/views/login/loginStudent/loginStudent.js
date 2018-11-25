@@ -6,6 +6,8 @@ import CardBody from "../../../components/card/cardBody/cardBody";
 import {Formik} from "formik";
 import LoginForm from "./loginForm/loginForm";
 import * as Yup from 'yup';
+import {connect} from "react-redux";
+import {loginStudentFetch} from "../../../actions/auth.actions";
 
 const initialValues = {
     'cedula': {
@@ -15,7 +17,8 @@ const initialValues = {
     'contraseña': ''
 };
 
-function LoginStudent() {
+function LoginStudent(props) {
+    const { match, dispatch, error, errorMsg, errorType } = props;
     return (
         <LoginContainer>
             <LoginCard>
@@ -44,9 +47,12 @@ function LoginStudent() {
                             'contraseña': Yup.string().trim().required('Debe ingresar la clave de Acceso')
                         })}
                         onSubmit={(values, formikActions) => {
-                            console.log(values)
+                            const { cedula, contraseña } = values;
+                            const cedulaFormed = `${cedula.letra}-${cedula.numero}`;
+
+                            dispatch(loginStudentFetch({ cedula: cedulaFormed, contraseña }));
                         }}
-                        render={LoginForm}
+                        render={props => <LoginForm {...props} match={match} submitError={error} errorMsg={errorMsg} errorType={errorType}/>}
                     />
                 </CardBody>
             </LoginCard>
@@ -54,4 +60,10 @@ function LoginStudent() {
     );
 }
 
-export default LoginStudent;
+const mapStateToProps = (state) => ({
+    error: state.auth.error,
+    errorMsg: state.auth.errorMsg,
+    errorType: state.auth.errorType
+});
+
+export default connect(mapStateToProps)(LoginStudent);
