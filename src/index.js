@@ -8,6 +8,7 @@ import GlobalStyles from "./components/globalstyles/globalstyles";
 import Appbar from "./components/appbar/appbar";
 import {BrowserRouter as Router} from "react-router-dom";
 import TopLevelRoutes from "./routes/topLevelRoutes";
+import AuthCheck from "./components/authCheck/authCheck";
 
 ReactDOM.render(
     <Provider store={store}>
@@ -16,7 +17,9 @@ ReactDOM.render(
                 <GlobalStyles/>
                 <Appbar/>
                 <Router>
-                    <TopLevelRoutes/>
+                    <AuthCheck>
+                        <TopLevelRoutes/>
+                    </AuthCheck>
                 </Router>
             </div>
         </ThemeProviderConnected>

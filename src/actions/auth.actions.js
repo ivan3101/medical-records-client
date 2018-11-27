@@ -38,3 +38,12 @@ export const loginFailed = ({ errorMsg, errorType }) => ({
         errorType
     }
 });
+
+export const redirectUrlPut = ({ redirectUrl }) => ({
+    type: 'REDIRECT_URL/PUT',
+    redirectUrl
+});
+
+export const loggingOutPut = () => ({
+    type:'LOGGING_OUT/PUT'
+});

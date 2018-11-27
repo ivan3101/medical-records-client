@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
 import { lighten, darken } from 'polished';
+import {NavLink} from "react-router-dom";
 
 const ItemMenu = (props) => {
-    const { className, children, link } = props;
+    const { className, children, path } = props;
 
     const StyledLi = styled.li`
       width: 100%;
@@ -12,10 +13,10 @@ const ItemMenu = (props) => {
 
     return (
         <StyledLi>
-            <a
-                href={ link }
+            <NavLink
+                to={ path }
                 className={ className }
-            > { children } </a>
+            > { children } </NavLink>
         </StyledLi>
     );
 };

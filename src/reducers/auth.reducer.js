@@ -5,7 +5,8 @@ const defaultState = {
     error: false,
     errorType: '',
     errorMsg: '',
-    name: ''
+    name: '',
+    redirectUrl: '/'
 };
 
 export default (state = defaultState, action) => {
@@ -41,6 +42,15 @@ export default (state = defaultState, action) => {
                 errorMsg: action.error.errorMsg,
                 errorType: action.error.errorType
             };
+
+        case 'REDIRECT_URL/PUT':
+            return {
+                ...state,
+                redirectUrl: action.redirectUrl
+            };
+
+        case 'LOGGING_OUT/PUT':
+            return defaultState;
 
         default:
             return state;

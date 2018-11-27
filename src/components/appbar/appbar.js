@@ -7,9 +7,10 @@ import LoginInfo from "./loginInfo/loginInfo";
 import Username from "./username/username";
 import LogoutButton from "./logoutButton/logoutButton";
 import {connect} from "react-redux";
+import {loggingOutPut} from "../../actions/auth.actions";
 
 const Appbar = (props) => {
-    const { isLoggedIn, name } = props;
+    const { isLoggedIn, name, dispatch } = props;
 
     const StyledAppbar = styled.header`
       width: 100%;
@@ -19,7 +20,11 @@ const Appbar = (props) => {
       display: flex;
       align-items: center;  
       box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);  
-`;
+    `;
+
+    const onLoggingOut = () => {
+        dispatch(loggingOutPut());
+    };
 
     return (
         <StyledAppbar>
@@ -32,7 +37,7 @@ const Appbar = (props) => {
                 isLoggedIn && (
                     <LoginInfo>
                         <Username> { name } </Username>
-                        <LogoutButton> Cerrar Sesion </LogoutButton>
+                        <LogoutButton onClick={onLoggingOut}> Cerrar Sesion </LogoutButton>
                     </LoginInfo>
                 )
             }
