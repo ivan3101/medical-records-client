@@ -1,19 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
-import styled from "styled-components";
-import tw from "tailwind.macro";
 import * as serviceWorker from "./serviceWorker";
-
-const Button = styled.button`
-  ${tw`font-mono text-sm text-red hover:text-blue`};
-  background-color: #ffffff;
-  padding: 25px;
-`;
+import Appbar from "./components/appbar/appbar";
+import GlobalStyles from "./components/globalStyles/globalStyles";
 
 ReactDOM.render(
-    <div>
-        <Button>Hello world</Button>
-    </div>
+    <Fragment>
+      <GlobalStyles/>
+      <Appbar/>
+    </Fragment>
     , document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
