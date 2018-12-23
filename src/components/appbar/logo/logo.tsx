@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import styled from "styled-components/macro";
 import tw from "tailwind.macro";
 import logo from "../../../assets/logo/medc.svg";
@@ -16,7 +16,7 @@ const LogoImgContainer = styled.img`
   ${tw`w-32 h-full object-cover`};
 `;
 
-const Logo = () => {
+const Logo: FunctionComponent = () => {
   return (
     <LogoContainer>
       <UjapLogoContainer src={ujapLogo}/>
