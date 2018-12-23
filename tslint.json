@@ -8,7 +8,9 @@
   ],
   "jsRules": {},
   "rules": {
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "member-access": [true, "no-public"],
+    "jsx-boolean-value": false
   },
   "rulesDirectory": []
 }
