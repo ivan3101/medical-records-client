@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import tw from "tailwind.macro";
 
 export interface IBackground {
@@ -7,7 +7,7 @@ export interface IBackground {
 }
 
 const StyledBackground = styled.main`
-  ${tw`bg-black w-full p-8`};
+  ${tw`bg-black w-full p-6 md:p-12`};
   
   height: calc(100vh - 6rem);
 `;
