@@ -1,13 +1,15 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
-import * as serviceWorker from "./serviceWorker";
 import Appbar from "./components/appbar/appbar";
 import GlobalStyles from "./components/globalStyles/globalStyles";
+import * as serviceWorker from "./serviceWorker";
+import Background from "./components/background/background";
 
 ReactDOM.render(
     <Fragment>
       <GlobalStyles/>
       <Appbar/>
+      <Background />
     </Fragment>
     , document.getElementById("root"));
 
