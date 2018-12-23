@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { Redirect, Route, Switch } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import LoginRoutes from "./loginRoutes/loginRoutes";
 
-const TopLevelRoutes = () => {
+const TopLevelRoutes: FunctionComponent = () => {
   return (
     <BrowserRouter>
       <Switch>
