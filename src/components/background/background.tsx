@@ -7,7 +7,7 @@ export interface IBackground {
 }
 
 const StyledBackground = styled.main<IBackground>`
-  ${tw`bg-black w-full p-6 md:p-12`};
+  ${tw`bg-grey-light w-full p-6 md:p-12`};
   
   height: calc(100vh - 6rem);
   
