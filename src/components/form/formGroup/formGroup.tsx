@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 import tw from "tailwind.macro";
 
 export interface IFormGroup {
-  inline: boolean;
+  inline?: boolean;
 }
 
 const FormGroup = styled.div<IFormGroup>`

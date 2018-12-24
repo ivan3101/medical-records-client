@@ -129,8 +129,8 @@ let colors = {
   'pink-lighter': '#ffbbca',
   'pink-lightest': '#ffebef',
 
-  'primary-color': '#134074',
-  'secondary-color': '#0b2545'
+  'primary': '#134074',
+  'secondary': '#0b2545'
 };
 
 module.exports = {
