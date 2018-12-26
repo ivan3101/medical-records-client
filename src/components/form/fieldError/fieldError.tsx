@@ -1,10 +1,10 @@
 import { ErrorMessage, ErrorMessageProps } from "formik";
 import React, { FunctionComponent } from "react";
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import tw from "tailwind.macro";
 
 const StyledFieldError = styled.div`
-  ${tw`text-red-dark text-sm font-medium block`};
+  ${tw`text-red-dark text-sm font-medium block mt-2`};
 `;
 
 const FieldError: FunctionComponent<ErrorMessageProps> = ({name}) => {

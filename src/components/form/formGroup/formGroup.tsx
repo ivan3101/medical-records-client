@@ -6,7 +6,7 @@ export interface IFormGroup {
 }
 
 const FormGroup = styled.div<IFormGroup>`
-  ${tw`flex w-full`};
+  ${tw`w-full mb-5`};
   
   ${props => props.inline ? tw`flex-row` : tw`flex-col`};
 `;
