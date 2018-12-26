@@ -4,7 +4,7 @@ import styled from "styled-components/macro";
 import tw from "tailwind.macro";
 
 const StyledFieldError = styled.div`
-  ${tw`text-red-dark text-sm font-medium block mt-2`};
+  ${tw`text-red-dark text-sm font-bold block mt-2`};
 `;
 
 const InputError: FunctionComponent<ErrorMessageProps> = ({name}) => {

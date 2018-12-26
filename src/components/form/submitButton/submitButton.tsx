@@ -8,7 +8,7 @@ export interface ISubmitButton {
 const SubmitButton = styled.button.attrs({
   type: 'submit'
 })<ISubmitButton>`
-  ${tw`px-4 py-2 font-bold rounded`};
+  ${tw`px-4 py-2 font-bold rounded w-full`};
   
   ${props => props.disabled ?
     tw`bg-grey-darker text-white cursor-not-allowed`
