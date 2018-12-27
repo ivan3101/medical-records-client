@@ -8,16 +8,14 @@ const StyledSubmitError = styled(SubmitMessage)`
   ${tw`bg-red-lightest border-red-light text-red-dark`}
 `;
 
-const SubmitError: FunctionComponent = ({children}) => {
+const SubmitError: FunctionComponent = ({ children }) => {
   return (
     <StyledSubmitError>
-      <SubmitMessageType>
-        Error
-      </SubmitMessageType>
+      <SubmitMessageType>Error</SubmitMessageType>
 
-      {children}
+      {" " + children}
     </StyledSubmitError>
-  )
+  );
 };
 
 export default SubmitError;

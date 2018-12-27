@@ -8,16 +8,14 @@ const StyledSubmitSuccess = styled(SubmitMessage)`
   ${tw`bg-green-lightest border-green-light text-green-dark`}
 `;
 
-const SubmitSuccess: FunctionComponent = ({children}) => {
+const SubmitSuccess: FunctionComponent = ({ children }) => {
   return (
     <StyledSubmitSuccess>
-      <SubmitMessageType>
-        Exito
-      </SubmitMessageType>
+      <SubmitMessageType>Exito</SubmitMessageType>
 
-      {children}
+      {" " + children}
     </StyledSubmitSuccess>
-  )
+  );
 };
 
 export default SubmitSuccess;

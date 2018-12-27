@@ -5,19 +5,17 @@ import SubmitMessage from "../submitMessage";
 import SubmitMessageType from "../submitMessageType";
 
 const StyledSubmitWarning = styled(SubmitMessage)`
-    ${tw`bg-yellow-lightest border-yellow-light text-yellow-dark`}
+  ${tw`bg-yellow-lightest border-yellow-light text-yellow-dark`}
 `;
 
-const SubmitWarning: FunctionComponent = ({children}) => {
+const SubmitWarning: FunctionComponent = ({ children }) => {
   return (
     <StyledSubmitWarning>
-      <SubmitMessageType>
-        Advertencia
-      </SubmitMessageType>
+      <SubmitMessageType>Advertencia</SubmitMessageType>
 
-      {children}
+      {" " + children}
     </StyledSubmitWarning>
-  )
+  );
 };
 
 export default SubmitWarning;
