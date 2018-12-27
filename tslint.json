@@ -10,7 +10,11 @@
   "rules": {
     "jsx-no-lambda": false,
     "member-access": [true, "no-public"],
-    "jsx-boolean-value": false
+    "jsx-boolean-value": false,
+    "prettier": true
   },
-  "rulesDirectory": []
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "linterOptions": {
+    "exclude": ["node_modules/**/*.ts"]
+  }
 }
