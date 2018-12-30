@@ -4,7 +4,8 @@ import React, { Component, MouseEventHandler } from "react";
 import { oc } from "ts-optchain";
 import FormGroup from "../../../../../components/form/formGroup/formGroup";
 import InlineInputs from "../../../../../components/form/inlineInputs/inlineInputs";
-import Input from "../../../../../components/form/input/input";
+import FastInput from "../../../../../components/form/input/fastInput/fastInput";
+import NormalInput from "../../../../../components/form/input/normalInput/normalInput";
 import InputError from "../../../../../components/form/inputError/inputError";
 import Label from "../../../../../components/form/label/label";
 import ShowPassword from "../../../../../components/form/showPassword/showPassword";
@@ -82,7 +83,7 @@ class LoginForm extends Component<FormikProps<ILoginStudent>, ILoginFormState> {
               <option value="G">G</option>
             </CedulaType>
 
-            <Input
+            <FastInput
               name={"cedula.number"}
               id={"cedula.number"}
               isinvalid={
@@ -102,7 +103,7 @@ class LoginForm extends Component<FormikProps<ILoginStudent>, ILoginFormState> {
             Clave de Acceso
             <ShowPassword onClick={this.onShowPassword} />
           </Label>
-          <Input
+          <NormalInput
             name={"contraseña"}
             id={"contraseña"}
             type={showPassword ? "text" : "password"}

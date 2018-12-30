@@ -9,15 +9,11 @@ const LoginStudent: FunctionComponent = () => {
   return (
     <Background center>
       <LoginCard>
-
-        <CardHeader>
-          Iniciar Sesión
-        </CardHeader>
+        <CardHeader>Iniciar Sesión</CardHeader>
 
         <CardContent>
-          <LoginFormContainer/>
+          <LoginFormContainer />
         </CardContent>
-
       </LoginCard>
     </Background>
   );
