@@ -1,8 +1,9 @@
 import { FormikActions } from "formik";
 import { IUser } from "../../services/auth/types";
+import { ILoginPersonal } from "../../views/login/loginPersonal/components/loginForm/loginFormContainer";
 import { ILoginStudent } from "../../views/login/loginStudent/components/loginForm/loginFormContainer";
 
-export interface IPutLoginUserStudent {
+export interface IPutLoginUser {
   user: IUser;
   role: UserRole;
   token: string;
@@ -16,9 +17,19 @@ export interface IFetchLoginUserStudent {
   };
 }
 
+export interface IFetchLoginUserPersonal {
+  formikActions: FormikActions<ILoginPersonal>;
+  personal: {
+    nombreDeUsuario: string;
+    contraseña: string;
+  };
+}
+
 export enum AuthActionTypes {
   FETCH_LOGIN_USER_STUDENT = "@@auth/LOGIN_USER_STUDENT/FETCH",
-  PUT_LOGIN_USER_STUDENT = "@@auth/LOGIN_USER_STUDENT/PUT"
+  PUT_LOGIN_USER_STUDENT = "@@auth/LOGIN_USER_STUDENT/PUT",
+  FETCH_LOGIN_USER_PERSONAL = "@@auth/LOGIN_USER_PERSONAL/FETCH",
+  PUT_LOGIN_USER_PERSONAL = "@@auth/LOGIN_USER_PERSONAL/PUT"
 }
 
 export enum UserRole {
@@ -34,4 +45,4 @@ export interface IAuthState {
   readonly isAuthenticated: boolean;
 }
 
-export type ActionsPayloads = IPutLoginUserStudent;
+export type ActionsPayloads = IPutLoginUser;

@@ -2,10 +2,18 @@ import { AxiosResponse } from "axios";
 import { all, call, cancel, fork, put, take } from "redux-saga/effects";
 import { PayloadAction } from "typesafe-actions/dist/types";
 import { AuthService } from "../../services/auth/auth.service";
-import { ILoginStudentResponse } from "../../services/auth/types";
+import {
+  ILoginPersonalResponse,
+  ILoginStudentResponse
+} from "../../services/auth/types";
 import { IApiErrorResponse, IApiResponse } from "../../services/types";
-import { putLoginUserStudent } from "./actions";
-import { AuthActionTypes, IFetchLoginUserStudent } from "./types";
+import { putLoginUserPersonal, putLoginUserStudent } from "./actions";
+import {
+  AuthActionTypes,
+  IFetchLoginUserPersonal,
+  IFetchLoginUserStudent,
+  UserRole
+} from "./types";
 
 const authService = new AuthService();
 
@@ -56,6 +64,54 @@ function* loginUserStudentFetch(
   action.payload.formikActions.setSubmitting(false);
 }
 
+function* loginUserPersonalFetch(
+  action: PayloadAction<
+    AuthActionTypes.FETCH_LOGIN_USER_PERSONAL,
+    IFetchLoginUserPersonal
+  >
+) {
+  try {
+    const response: AxiosResponse<
+      IApiResponse<ILoginPersonalResponse>
+    > = yield call(authService.loginPersonal, {
+      personal: action.payload.personal
+    });
+
+    const { personal, token } = response.data.data;
+
+    yield put(
+      putLoginUserPersonal(
+        {
+          id: personal.id,
+          nombre: personal.nombre,
+          apellido: personal.apellido
+        },
+        token,
+        personal.rol || UserRole.PROFESSOR
+      )
+    );
+  } catch (error) {
+    if (error.response) {
+      const response: AxiosResponse<IApiErrorResponse> = error.response;
+
+      action.payload.formikActions.setStatus({
+        error: response.data.message
+      });
+    } else if (error.request) {
+      action.payload.formikActions.setStatus({
+        error:
+          "No se pudo establecer una conexión con el servidor. Por favor, vuelva a intentarlo mas tarde"
+      });
+    } else {
+      action.payload.formikActions.setStatus({
+        error: "Ha ocurrido un error. Por favor, vuelva a intentarlo mas tarde"
+      });
+    }
+  }
+
+  action.payload.formikActions.setSubmitting(false);
+}
+
 function* watchLoginUserStudentFetch() {
   let lastTask;
 
@@ -73,8 +129,28 @@ function* watchLoginUserStudentFetch() {
   }
 }
 
+function* watchLoginUserPersonalFetch() {
+  let lastTask;
+
+  while (true) {
+    const action: PayloadAction<
+      AuthActionTypes.FETCH_LOGIN_USER_PERSONAL,
+      IFetchLoginUserPersonal
+    > = yield take(AuthActionTypes.FETCH_LOGIN_USER_PERSONAL);
+
+    if (lastTask) {
+      yield cancel(lastTask);
+    }
+
+    lastTask = yield fork(loginUserPersonalFetch, action);
+  }
+}
+
 function* authSaga() {
-  yield all([fork(watchLoginUserStudentFetch)]);
+  yield all([
+    fork(watchLoginUserStudentFetch),
+    fork(watchLoginUserPersonalFetch)
+  ]);
 }
 
 export default authSaga;

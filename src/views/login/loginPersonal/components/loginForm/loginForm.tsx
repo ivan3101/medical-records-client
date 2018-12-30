@@ -3,7 +3,6 @@ import { isEmpty } from "lodash";
 import React, { Component, MouseEventHandler } from "react";
 import { oc } from "ts-optchain";
 import FormGroup from "../../../../../components/form/formGroup/formGroup";
-import InlineInputs from "../../../../../components/form/inlineInputs/inlineInputs";
 import FastInput from "../../../../../components/form/input/fastInput/fastInput";
 import NormalInput from "../../../../../components/form/input/normalInput/normalInput";
 import InputError from "../../../../../components/form/inputError/inputError";
@@ -14,8 +13,7 @@ import SubmitError from "../../../../../components/form/submitMessage/submitErro
 import SubmitWarning from "../../../../../components/form/submitMessage/submitWarning/submitWarning";
 import RouterLink from "../../../../../components/link/routerLink/routerLink";
 import Loader from "../../../../../components/loader/loader";
-import CedulaType from "../cedulaType/cedulaType";
-import { ILoginStudent } from "./loginFormContainer";
+import { ILoginPersonal } from "./loginFormContainer";
 
 export interface ILoginFormState {
   showPassword: boolean;
@@ -26,7 +24,10 @@ export interface ILoginFormStatus {
   warning?: string;
 }
 
-class LoginForm extends Component<FormikProps<ILoginStudent>, ILoginFormState> {
+class LoginForm extends Component<
+  FormikProps<ILoginPersonal>,
+  ILoginFormState
+> {
   state: ILoginFormState = {
     showPassword: false
   };
@@ -58,41 +59,20 @@ class LoginForm extends Component<FormikProps<ILoginStudent>, ILoginFormState> {
         )}
 
         <FormGroup>
-          <Label htmlFor={"cedula.number"}>Cedula del Estudiante</Label>
-          <InlineInputs>
-            <CedulaType
-              name={"cedula.type"}
-              id={"cedula.type"}
-              isinvalid={
-                safeErrors.cedula.type() && safeTouched.cedula.type() ? 1 : 0
-              }
-              component={"select"}
-            >
-              <option value="V">V</option>
-              <option value="J">J</option>
-              <option value="P">P</option>
-              <option value="E">E</option>
-              <option value="G">G</option>
-            </CedulaType>
-
-            <FastInput
-              name={"cedula.number"}
-              id={"cedula.number"}
-              isinvalid={
-                safeErrors.cedula.number() && safeTouched.cedula.number()
-                  ? 1
-                  : 0
-              }
-            />
-          </InlineInputs>
-
-          <InputError name={"cedula.type"} />
-          <InputError name={"cedula.number"} />
+          <Label htmlFor={"nombreDeUsuario"}>Nombre de usuario</Label>
+          <FastInput
+            name={"nombreDeUsuario"}
+            id={"nombreDeUsuario"}
+            isinvalid={
+              safeErrors.contraseña() && safeTouched.contraseña() ? 1 : 0
+            }
+          />
+          <InputError name={"nombreDeUsuario"} />
         </FormGroup>
 
         <FormGroup>
           <Label htmlFor={"contraseña"}>
-            Clave de Acceso
+            Contraseña
             <ShowPassword onClick={this.onShowPassword} />
           </Label>
           <NormalInput
@@ -110,11 +90,12 @@ class LoginForm extends Component<FormikProps<ILoginStudent>, ILoginFormState> {
           Iniciar Sesión
         </SubmitButton>
 
-        <RouterLink to={"/login/personal"}>
-          ¿No es un Estudiante? Haga click aquí
+        <RouterLink to={"/login/estudiante"}>
+          ¿Eres un Estudiante? Haga click aquí
         </RouterLink>
       </Form>
     );
   }
 }
+
 export default LoginForm;

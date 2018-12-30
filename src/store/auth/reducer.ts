@@ -19,9 +19,14 @@ const reducer: Reducer<
     case AuthActionTypes.PUT_LOGIN_USER_STUDENT: {
       return {
         isAuthenticated: true,
-        role: action.payload.role,
-        user: action.payload.user,
-        token: action.payload.token
+        ...action.payload
+      };
+    }
+
+    case AuthActionTypes.PUT_LOGIN_USER_PERSONAL: {
+      return {
+        isAuthenticated: true,
+        ...action.payload
       };
     }
 

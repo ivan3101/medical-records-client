@@ -7,8 +7,8 @@ const TopLevelRoutes: FunctionComponent = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={'/login'} component={LoginRoutes}/>
-        <Redirect to={'/login'}/>
+        <Route path={"/login"} component={LoginRoutes} />
+        <Redirect to={"/login"} />
       </Switch>
     </BrowserRouter>
   );
