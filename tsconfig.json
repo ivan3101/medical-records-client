@@ -16,7 +16,8 @@
     "removeComments": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "strictPropertyInitialization": true
+    "strictPropertyInitialization": true,
+    "experimentalDecorators": true
   },
   "include": [
     "src"
