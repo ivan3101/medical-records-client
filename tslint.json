@@ -8,6 +8,7 @@
   ],
   "jsRules": {},
   "rules": {
+    "object-literal-sort-keys": [true, "match-declaration-order"],
     "jsx-no-lambda": false,
     "member-access": [true, "no-public"],
     "jsx-boolean-value": false,
