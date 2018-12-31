@@ -25,11 +25,16 @@ export interface IFetchLoginUserPersonal {
   };
 }
 
+export interface IPutRedirectUrl {
+  redirectUrl: string;
+}
+
 export enum AuthActionTypes {
   FETCH_LOGIN_USER_STUDENT = "@@auth/LOGIN_USER_STUDENT/FETCH",
   PUT_LOGIN_USER_STUDENT = "@@auth/LOGIN_USER_STUDENT/PUT",
   FETCH_LOGIN_USER_PERSONAL = "@@auth/LOGIN_USER_PERSONAL/FETCH",
-  PUT_LOGIN_USER_PERSONAL = "@@auth/LOGIN_USER_PERSONAL/PUT"
+  PUT_LOGIN_USER_PERSONAL = "@@auth/LOGIN_USER_PERSONAL/PUT",
+  PUT_REDIRECT_URL = "@auth/REDIRECT_URL/PUT"
 }
 
 export enum UserRole {
@@ -43,6 +48,7 @@ export interface IAuthState {
   readonly user: IUser | undefined;
   readonly role: UserRole | undefined;
   readonly isAuthenticated: boolean;
+  readonly redirectUrl: string;
 }
 
-export type ActionsPayloads = IPutLoginUser;
+export type ActionsPayloads = IPutLoginUser & IPutRedirectUrl;

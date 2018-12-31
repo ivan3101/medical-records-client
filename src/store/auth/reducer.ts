@@ -5,7 +5,8 @@ import { ActionsPayloads, AuthActionTypes, IAuthState } from "./types";
 const initialState: IAuthState = {
   isAuthenticated: false,
   role: undefined,
-  user: undefined
+  user: undefined,
+  redirectUrl: "/"
 };
 
 const reducer: Reducer<
@@ -18,6 +19,7 @@ const reducer: Reducer<
   switch (action.type) {
     case AuthActionTypes.PUT_LOGIN_USER_STUDENT: {
       return {
+        ...state,
         isAuthenticated: true,
         ...action.payload
       };
@@ -25,8 +27,16 @@ const reducer: Reducer<
 
     case AuthActionTypes.PUT_LOGIN_USER_PERSONAL: {
       return {
+        ...state,
         isAuthenticated: true,
         ...action.payload
+      };
+    }
+
+    case AuthActionTypes.PUT_REDIRECT_URL: {
+      return {
+        ...state,
+        redirectUrl: action.payload.redirectUrl
       };
     }
 

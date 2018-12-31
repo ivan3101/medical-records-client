@@ -5,6 +5,7 @@ import {
   IFetchLoginUserPersonal,
   IFetchLoginUserStudent,
   IPutLoginUser,
+  IPutRedirectUrl,
   UserRole
 } from "./types";
 
@@ -45,5 +46,13 @@ export const putLoginUserPersonal = (
       user,
       token,
       role
+    }
+  );
+
+export const putRedirectUrl = (redirectUrl: string) =>
+  action<AuthActionTypes.PUT_REDIRECT_URL, IPutRedirectUrl>(
+    AuthActionTypes.PUT_REDIRECT_URL,
+    {
+      redirectUrl
     }
   );
