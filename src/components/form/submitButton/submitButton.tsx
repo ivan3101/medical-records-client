@@ -6,15 +6,14 @@ export interface ISubmitButton {
 }
 
 const SubmitButton = styled.button.attrs({
-  type: 'submit'
+  type: "submit"
 })<ISubmitButton>`
   ${tw`px-4 py-2 font-bold rounded w-full`};
-  
-  ${props => props.disabled ?
-    tw`bg-grey-darker text-white cursor-not-allowed`
-    :
-    tw`bg-primary text-white hover:bg-blue-darker`
-  }
+
+  ${props =>
+    props.disabled
+      ? tw`bg-grey-darker text-white cursor-not-allowed`
+      : tw`bg-primary text-white hover:bg-blue-darker`}
 `;
 
 export default SubmitButton;

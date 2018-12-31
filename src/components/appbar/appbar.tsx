@@ -10,7 +10,7 @@ const AppbarContainer = styled.nav`
 const Appbar: FunctionComponent = () => {
   return (
     <AppbarContainer>
-      <Logo/>
+      <Logo />
     </AppbarContainer>
   );
 };

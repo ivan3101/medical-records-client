@@ -19,8 +19,8 @@ const LogoImgContainer = styled.img`
 const Logo: FunctionComponent = () => {
   return (
     <LogoContainer>
-      <UjapLogoContainer src={ujapLogo}/>
-      <LogoImgContainer src={logo}/>
+      <UjapLogoContainer src={ujapLogo} />
+      <LogoImgContainer src={logo} />
     </LogoContainer>
   );
 };

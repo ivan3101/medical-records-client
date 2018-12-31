@@ -7,10 +7,8 @@ const StyledFieldError = styled.div`
   ${tw`text-red-dark text-sm font-bold block mt-2`};
 `;
 
-const InputError: FunctionComponent<ErrorMessageProps> = ({name}) => {
-  return (
-    <ErrorMessage component={StyledFieldError} name={name}/>
-  )
+const InputError: FunctionComponent<ErrorMessageProps> = ({ name }) => {
+  return <ErrorMessage component={StyledFieldError} name={name} />;
 };
 
 export default InputError;

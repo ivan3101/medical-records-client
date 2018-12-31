@@ -7,24 +7,24 @@ export interface IShowPassword {
 }
 
 const StyledLabel = styled.label`
-  ${tw`inline-flex items-center text-sm font-normal my-2 lg:my-0`};  
+  ${tw`inline-flex items-center text-sm font-normal my-2 lg:my-0`};
 `;
 
 const StyledCheckbox = styled.input`
   ${tw`cursor-pointer`};
 `;
 
-const ShowPassword: FunctionComponent<IShowPassword> = ({onClick: handleClick}) => {
+const ShowPassword: FunctionComponent<IShowPassword> = ({
+  onClick: handleClick
+}) => {
   return (
     <StyledLabel>
       <StyledCheckbox
         type="checkbox"
         defaultChecked={false}
         onClick={handleClick}
-      />
-
-      {" "} Mostrar contraseña
-
+      />{" "}
+      Mostrar contraseña
     </StyledLabel>
   );
 };
