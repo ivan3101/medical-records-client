@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import Background from "../background/background";
 
-const DashboardLayout = styled.div`
-  display: grid;
-  grid-template-columns: 200px 1fr;
+const DashboardLayout = styled(Background)`
+  margin-left: 200px;
+  width: calc(100vw - 200px);
 `;
 
 export default DashboardLayout;
