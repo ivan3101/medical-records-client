@@ -29,7 +29,12 @@ class EnsureUsersOnly extends Component<EnsureUsersOnlyType> {
   }
 
   render() {
-    return <div />;
+    const { isAuthenticated, children } = this.props;
+    if (isAuthenticated) {
+      return children;
+    } else {
+      return null;
+    }
   }
 }
 
