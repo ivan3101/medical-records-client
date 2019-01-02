@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 import Background from "../background/background";
 
 const DashboardLayout = styled(Background)`
