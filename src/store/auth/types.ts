@@ -49,6 +49,7 @@ export interface IAuthState {
   readonly role: UserRole | undefined;
   readonly isAuthenticated: boolean;
   readonly redirectUrl: string;
+  readonly token: string;
 }
 
 export type ActionsPayloads = IPutLoginUser & IPutRedirectUrl;

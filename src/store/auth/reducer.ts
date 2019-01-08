@@ -6,7 +6,8 @@ const initialState: IAuthState = {
   isAuthenticated: false,
   role: undefined,
   user: undefined,
-  redirectUrl: "/"
+  redirectUrl: "/",
+  token: ""
 };
 
 const reducer: Reducer<
