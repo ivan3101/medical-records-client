@@ -1,5 +1,6 @@
-import Axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig } from "axios";
+import { AxiosPromise, AxiosRequestConfig } from "axios";
 import { bind } from "decko";
+import { Service } from "../service";
 import { IApiResponse } from "../types";
 import {
   ILoginPersonalRequest,
@@ -9,24 +10,27 @@ import {
 
 const apiURL = process.env.REACT_APP_API_URL;
 
-export class AuthService {
-  private readonly axiosConfig: AxiosRequestConfig = {
-    baseURL: apiURL,
-    responseType: "json"
-  };
-  private readonly axios: AxiosInstance = Axios.create(this.axiosConfig);
+export class AuthService extends Service {
+  constructor() {
+    const axiosConfig: AxiosRequestConfig = {
+      baseURL: apiURL + "/auth",
+      responseType: "json"
+    };
+
+    super(axiosConfig);
+  }
 
   @bind
   loginStudent(
     tempPassword: ILoginStudentRequest
   ): AxiosPromise<IApiResponse<ILoginStudentResponse>> {
-    return this.axios.post("/auth/student", tempPassword);
+    return this.axios.post("/student", tempPassword);
   }
 
   @bind
   loginPersonal(
     personal: ILoginPersonalRequest
   ): AxiosPromise<IApiResponse<ILoginStudentResponse>> {
-    return this.axios.post("/auth/personal", personal);
+    return this.axios.post("/personal", personal);
   }
 }
