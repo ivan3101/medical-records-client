@@ -7,7 +7,6 @@ const Loader = () => {
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
     margin: 5px 0;
   `;
 

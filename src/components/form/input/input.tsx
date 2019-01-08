@@ -5,6 +5,7 @@ import tw from "tailwind.macro";
 
 export interface IInput {
   isinvalid: number;
+  width?: string;
   as:
     | ComponentClass<FastFieldAttributes<any>>
     | ComponentClass<FieldAttributes<any>>;
@@ -32,10 +33,16 @@ const Input = styled(UnstyledInput).attrs({
       0 0 6px 0 ${props => (props.isinvalid ? "#cc1f1a" : "#3490dc")};
   }
 
+  :disabled {
+    ${tw`bg-grey-dark cursor-not-allowed`};
+  }
+
   ${props =>
     props.isinvalid
       ? tw`border-red-dark focus:border-red-dark focus:border-2`
       : tw`border-grey-dark focus:border-blue focus:border-2`};
+
+  width: ${props => props.width};
 `;
 
 export default Input;

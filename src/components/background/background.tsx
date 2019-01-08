@@ -9,7 +9,7 @@ export interface IBackground {
 const Background = styled.main<IBackground>`
   ${tw`bg-grey-light w-full p-6 md:p-12`};
 
-  height: calc(100vh - 6rem);
+  min-height: calc(100vh - 6rem);
 
   ${props => (props.center ? tw`flex items-center justify-center` : "")}
 `;
