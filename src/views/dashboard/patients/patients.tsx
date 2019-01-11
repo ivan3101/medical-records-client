@@ -11,6 +11,8 @@ import CardImg from "../../../components/card/cardImg/cardImg";
 import CardGrid from "../../../components/cardGrid/cardGrid";
 import Loader from "../../../components/loader/loader";
 import Modal from "../../../components/modal/modal";
+import ModalBody from "../../../components/modal/modalBody/modalBody";
+import ModalHeader from "../../../components/modal/modalHeader/modalHeader";
 import Pagination from "../../../components/pagination/pagination";
 import { PatientService } from "../../../services/patient/patient.service";
 import { IGetAllPatientsResponse } from "../../../services/patient/types";
@@ -247,8 +249,12 @@ class Patients extends Component<IPatientPropsType, IPatientsState> {
             <Loader />
           ) : (
             <React.Fragment>
-              <h2>{modalType}</h2>
-              <p>{modalMessage}</p>
+              <ModalHeader>
+                <h1>{modalType}</h1>
+              </ModalHeader>
+              <ModalBody>
+                <p>{modalMessage}</p>
+              </ModalBody>
             </React.Fragment>
           )}
         </Modal>

@@ -6,6 +6,8 @@ import { RouteComponentProps } from "react-router";
 import Button from "../../../../components/button/button";
 import Container from "../../../../components/container/container";
 import Modal from "../../../../components/modal/modal";
+import ModalBody from "../../../../components/modal/modalBody/modalBody";
+import ModalHeader from "../../../../components/modal/modalHeader/modalHeader";
 import { PatientService } from "../../../../services/patient/patient.service";
 import { IApiErrorResponse } from "../../../../services/types";
 import { IApplicationState } from "../../../../store";
@@ -136,8 +138,12 @@ class ModifyPatient extends Component<
     return (
       <React.Fragment>
         <Modal show={showModal} closeCb={this.onCloseModal}>
-          <h2>{modalType}</h2>
-          <p>{modalMessage}</p>
+          <ModalHeader>
+            <h2>{modalType}</h2>
+          </ModalHeader>
+          <ModalBody>
+            <p>{modalMessage}</p>
+          </ModalBody>
         </Modal>
 
         <Button onClick={this.onClickReturn}>Regresar</Button>

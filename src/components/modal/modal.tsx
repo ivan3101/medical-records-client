@@ -3,35 +3,37 @@ import styled from "styled-components/macro";
 import tw from "tailwind.macro";
 import CloseButton from "./closeButton/closeButton";
 import ModalContent from "./modalContent/modalContent";
-import Overlay from "./overlay/overlay";
 
-export interface IModalProps {
-  className?: string;
-  closeCb: MouseEventHandler<HTMLDivElement>;
+export interface IModalContainerProps {
   show: boolean;
 }
 
-const UnstyledModal: FunctionComponent<IModalProps> = ({
-  className,
-  children,
-  closeCb
-}) => {
-  return (
-    <div className={className}>
-      <Overlay onClick={closeCb} />
-      <ModalContent>
-        {children}
+export interface IModalProps extends IModalContainerProps {
+  closeCb: MouseEventHandler<HTMLDivElement>;
+}
 
-        <CloseButton onClick={closeCb} />
+const ModalContainer = styled.div<IModalContainerProps>`
+  ${tw`fixed pin-t pin-l w-full h-full opacity-0 invisible z-40`};
+
+  background-color: rgba(0, 0, 0, 0.5);
+  transform: ${props => (props.show ? "scale(1)" : "scale(1.1)")};
+  transition: ${props =>
+    props.show
+      ? "visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s"
+      : "visibility 0s" + " linear 0.25s, opacity 0.25s 0s, transform 0.25s"};
+
+  ${props => (props.show ? tw`opacity-100 visible` : tw`opacity-0 invisible`)};
+`;
+
+const Modal: FunctionComponent<IModalProps> = ({ show, closeCb, children }) => {
+  return (
+    <ModalContainer onClick={closeCb} show={show}>
+      <ModalContent>
+        <CloseButton onClick={closeCb}>&times;</CloseButton>
+        {children}
       </ModalContent>
-    </div>
+    </ModalContainer>
   );
 };
-
-const Modal = styled(UnstyledModal)`
-  ${tw`fixed pin-t pin-l w-full h-full z-30`};
-
-  display: ${props => (props.show ? "block" : "none")};
-`;
 
 export default Modal;
