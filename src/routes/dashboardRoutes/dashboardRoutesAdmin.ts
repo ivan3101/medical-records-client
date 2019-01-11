@@ -1,9 +1,10 @@
 import patientsIcon from "../../assets/icons/patients.svg";
 import personalIcon from "../../assets/icons/personal.svg";
 import studentsIcon from "../../assets/icons/students.svg";
-import Patients from "../../views/dashboard/components/patients/patients";
-import Personal from "../../views/dashboard/components/personal/personal";
-import Students from "../../views/dashboard/components/students/students";
+import Patients from "../../views/dashboard/patients/patients";
+import Personal from "../../views/dashboard/personal/personal";
+import Students from "../../views/dashboard/students/students";
+import PatientRoutes from "./patientRoutes/patientRoutes";
 import { IDashboardRoute } from "./types";
 
 export const dashboardRoutesAdmin: IDashboardRoute[] = [
@@ -11,7 +12,7 @@ export const dashboardRoutesAdmin: IDashboardRoute[] = [
     name: "Pacientes",
     icon: patientsIcon,
     url: "/dashboard/pacientes",
-    component: Patients
+    component: PatientRoutes
   },
   {
     name: "Estudiantes",

@@ -1,14 +1,16 @@
 import { AxiosResponse } from "axios";
 import { Formik } from "formik";
-import React, { ComponentProps, FunctionComponent } from "react";
+import React, { ComponentProps, Fragment, FunctionComponent } from "react";
 import { connect, MapStateToProps } from "react-redux";
+import { RouteComponentProps } from "react-router";
 import { date, mixed, number, object, string } from "yup";
-import Modal, { IModalProps } from "../../../../../components/modal/modal";
-import { PatientService } from "../../../../../services/patient/patient.service";
-import { IApiErrorResponse } from "../../../../../services/types";
-import { IApplicationState } from "../../../../../store";
-import { TypeCedula } from "../../../../login/loginStudent/components/loginForm/loginFormContainer";
-import PatientForm from "../patientForm/patientForm";
+import Button from "../../../../components/button/button";
+import Container from "../../../../components/container/container";
+import { PatientService } from "../../../../services/patient/patient.service";
+import { IApiErrorResponse } from "../../../../services/types";
+import { IApplicationState } from "../../../../store";
+import { TypeCedula } from "../../../login/loginStudent/components/loginForm/loginFormContainer";
+import PatientForm from "../../components/patientForm/patientForm";
 
 export enum Gender {
   MALE = "Masculino",
@@ -29,8 +31,8 @@ export interface IPatientForm {
   genero: Gender;
   lugarDeNacimiento: string;
   telefono: {
-    prefix: "";
-    number: "";
+    prefix: string;
+    number: string;
   };
 }
 
@@ -39,10 +41,10 @@ export interface IPatientFormMapStateToProps {
 }
 
 export type IPatientFormTypes = IPatientFormMapStateToProps &
-  IModalProps &
+  RouteComponentProps &
   ComponentProps<any>;
 
-const initialValues: IPatientForm = {
+export const initialValues: IPatientForm = {
   apellido: "",
   cedula: {
     number: "",
@@ -61,7 +63,7 @@ const initialValues: IPatientForm = {
   }
 };
 
-const validationSchema = object().shape({
+export const validationSchema = object().shape({
   nombre: string()
     .trim()
     .required("Debe ingresar su nombre")
@@ -140,20 +142,28 @@ const validationSchema = object().shape({
     .max(new Date(), "No puede ingresar una fecha mayor a la actual")
 });
 
-const AddPatientModal: FunctionComponent<IPatientFormTypes> = ({
-  closeCb,
-  show,
-  token
+const AddPatient: FunctionComponent<IPatientFormTypes> = ({
+  token,
+  history
 }) => {
   const patientService = new PatientService(token);
 
+  const onClickReturn = () => {
+    history.push("/dashboard/pacientes");
+  };
+
   return (
-    <React.Fragment>
-      <Modal closeCb={closeCb} show={show}>
+    <Fragment>
+      <Button onClick={onClickReturn}>Regresar</Button>
+
+      <Container>
+        <h2>Agregar Paciente</h2>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={async (values, formikActions) => {
+            window.scrollTo(0, 0);
+
             formikActions.setSubmitting(true);
             formikActions.setStatus({});
 
@@ -200,22 +210,19 @@ const AddPatientModal: FunctionComponent<IPatientFormTypes> = ({
           }}
           component={PatientForm}
         />
-      </Modal>
-    </React.Fragment>
+      </Container>
+    </Fragment>
   );
 };
 
 const mapStateToProps: MapStateToProps<
   IPatientFormMapStateToProps,
-  IModalProps,
+  {},
   IApplicationState
 > = state => ({
   token: state.auth.token
 });
 
-export default connect<
-  IPatientFormMapStateToProps,
-  {},
-  IModalProps,
-  IApplicationState
->(mapStateToProps)(AddPatientModal);
+export default connect<IPatientFormMapStateToProps, {}, {}, IApplicationState>(
+  mapStateToProps
+)(AddPatient);

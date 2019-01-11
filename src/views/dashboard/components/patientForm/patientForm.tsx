@@ -2,22 +2,22 @@ import { FastField, Field, Form, FormikProps } from "formik";
 import isEmpty from "lodash.isempty";
 import React, { Component } from "react";
 import { oc } from "ts-optchain";
-import Borndate from "../../../../../components/form/borndate/borndate";
-import FieldSet from "../../../../../components/form/fieldSet/fieldSet";
-import FormGroup from "../../../../../components/form/formGroup/formGroup";
-import InlineInputs from "../../../../../components/form/inlineInputs/inlineInputs";
-import FastInput from "../../../../../components/form/input/fastInput/fastInput";
-import InputError from "../../../../../components/form/inputError/inputError";
-import Label from "../../../../../components/form/label/label";
-import Legend from "../../../../../components/form/legend/legend";
-import RadioInput from "../../../../../components/form/radioInput/radioInput";
-import SubmitButton from "../../../../../components/form/submitButton/submitButton";
-import SubmitError from "../../../../../components/form/submitMessage/submitError/submitError";
-import SubmitSuccess from "../../../../../components/form/submitMessage/submitSuccess/submitSuccess";
-import SubmitWarning from "../../../../../components/form/submitMessage/submitWarning/submitWarning";
-import Loader from "../../../../../components/loader/loader";
-import CedulaType from "../../../../login/loginStudent/components/cedulaType/cedulaType";
-import { Gender, IPatientForm } from "../addPatientModal/addPatientModal";
+import Borndate from "../../../../components/form/borndate/borndate";
+import FieldSet from "../../../../components/form/fieldSet/fieldSet";
+import FormGroup from "../../../../components/form/formGroup/formGroup";
+import InlineInputs from "../../../../components/form/inlineInputs/inlineInputs";
+import FastInput from "../../../../components/form/input/fastInput/fastInput";
+import InputError from "../../../../components/form/inputError/inputError";
+import Label from "../../../../components/form/label/label";
+import Legend from "../../../../components/form/legend/legend";
+import RadioInput from "../../../../components/form/radioInput/radioInput";
+import SubmitButton from "../../../../components/form/submitButton/submitButton";
+import SubmitError from "../../../../components/form/submitMessage/submitError/submitError";
+import SubmitSuccess from "../../../../components/form/submitMessage/submitSuccess/submitSuccess";
+import SubmitWarning from "../../../../components/form/submitMessage/submitWarning/submitWarning";
+import Loader from "../../../../components/loader/loader";
+import CedulaType from "../../../login/loginStudent/components/cedulaType/cedulaType";
+import { Gender, IPatientForm } from "../../patients/addPatient/addPatient";
 
 export interface IPatientFormStatus {
   error?: string;
@@ -48,8 +48,6 @@ class PatientForm extends Component<FormikProps<IPatientForm>> {
         {!!safeStatus.warning() && (
           <SubmitWarning>{safeStatus.warning()}</SubmitWarning>
         )}
-
-        <h2>Agregar Paciente</h2>
 
         <FieldSet>
           <Legend>Información Basica</Legend>
@@ -116,7 +114,7 @@ class PatientForm extends Component<FormikProps<IPatientForm>> {
               name={"genero"}
               value={Gender.MALE}
               label={"Masculino"}
-            />
+            />{" "}
             <Field
               component={RadioInput}
               name={"genero"}

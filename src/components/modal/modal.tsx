@@ -8,7 +8,7 @@ import Overlay from "./overlay/overlay";
 export interface IModalProps {
   className?: string;
   closeCb: MouseEventHandler<HTMLDivElement>;
-  show?: boolean;
+  show: boolean;
 }
 
 const UnstyledModal: FunctionComponent<IModalProps> = ({

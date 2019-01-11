@@ -30,6 +30,7 @@ export interface IPatient {
   lugarDeNacimiento: string;
   nombre: string;
   telefono: string;
+  email: string;
 }
 
 export interface ITriage {
