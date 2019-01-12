@@ -263,7 +263,9 @@ class Patients extends Component<IPatientPropsType, IPatientsState> {
           Pacientes{" "}
           <Button onClick={this.onClickAddPatient}>Agregar Paciente</Button>
         </h2>
+
         {loading && <Loader />}
+
         <CardGrid>
           {!!currentPatients.length &&
             currentPatients.map(patient => (

@@ -66,14 +66,14 @@ export const initialValues: IPatientForm = {
 export const validationSchema = object().shape({
   nombre: string()
     .trim()
-    .required("Debe ingresar su nombre")
+    .required("Debe ingresar el nombre del paciente")
     .matches(/^[a-zA-Z\s]+$/, {
       excludeEmptyString: true,
       message: "Solo puede ingresar letras y espacios"
     }),
   apellido: string()
     .trim()
-    .required("Debe ingresar su apellido")
+    .required("Debe ingresar el apellido del paciente")
     .matches(/^[a-zA-Z\s]+$/, {
       excludeEmptyString: true,
       message: "Solo puede ingresar letras y espacios"
@@ -87,14 +87,14 @@ export const validationSchema = object().shape({
   cedula: object().shape({
     number: string()
       .trim()
-      .required("Debe ingresar su numero de cedula")
+      .required("Debe ingresar el numero de cedula del paciente")
       .matches(/^([0-9]{7,10})$/, {
         excludeEmptyString: true,
         message: "El numero de cedula es invalido"
       }),
     type: string()
       .trim()
-      .required("Debe seleccionar su tipo de cedula")
+      .required("Debe seleccionar el tipo de cedula del paciente")
       .matches(/^([VEJPG])$/, {
         excludeEmptyString: true,
         message: "El tipo de cedula seleccionado es invalido"
@@ -102,7 +102,7 @@ export const validationSchema = object().shape({
   }),
   lugarDeNacimiento: string()
     .trim()
-    .required("Debe ingresar su lugar de nacimiento")
+    .required("Debe ingresar el lugar de nacimiento del paciente")
     .matches(/^[a-zA-Z\s]+$/, {
       excludeEmptyString: true,
       message: "Solo puede ingresar letras y espacios"
@@ -112,7 +112,7 @@ export const validationSchema = object().shape({
     .moreThan(1),
   direccion: string()
     .trim()
-    .required("Debe ingresar su dirección")
+    .required("Debe ingresar la dirección de vivienda del paciente")
     .matches(/[a-zA-Z0-9.\s]/, {
       excludeEmptyString: true,
       message: "Solo puede ingresar letras, numeros, puntos y espacios"
@@ -120,7 +120,7 @@ export const validationSchema = object().shape({
   telefono: object().shape({
     prefix: string()
       .trim()
-      .required("Debe ingresar el prefijo de su numero de telefono")
+      .required("Debe ingresar el prefijo del numero de telefono del paciente")
       .min(4, "El prefijo debe contener 4 digitos")
       .max(4, "El prefijo debe contener 4 digitos")
       .matches(/^([0-9]{4})$/, {
@@ -129,7 +129,7 @@ export const validationSchema = object().shape({
       }),
     number: string()
       .trim()
-      .required("Debe ingresar su numero de telefono")
+      .required("Debe ingresar el numero de telefono paciente")
       .min(7, "El numero debe contener 7 digitos")
       .max(7, "El numero debe contener 7 digitos")
       .matches(/^([0-9]{7}$)/, {
