@@ -286,7 +286,7 @@ class Patients extends Component<IPatientPropsType, IPatientsState> {
               </CardItem>
             ))}
         </CardGrid>
-        {loading && (
+        {!loading && (
           <Pagination
             activePage={this.state.page}
             onChange={this.onChangePage}
