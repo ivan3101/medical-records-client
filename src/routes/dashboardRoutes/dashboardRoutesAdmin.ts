@@ -3,6 +3,7 @@ import personalIcon from "../../assets/icons/personal.svg";
 import studentsIcon from "../../assets/icons/students.svg";
 import Personal from "../../views/dashboard/personal/personal";
 import PatientRoutes from "./patientRoutes/patientRoutes";
+import PersonalRoutes from "./personalRoutes/personalRoutes";
 import StudentRoutes from "./studentRoutes/studentRoutes";
 import { IDashboardRoute } from "./types";
 
@@ -23,6 +24,6 @@ export const dashboardRoutesAdmin: IDashboardRoute[] = [
     name: "Personal",
     icon: personalIcon,
     url: "/dashboard/personal",
-    component: Personal
+    component: PersonalRoutes
   }
 ];

@@ -1,36 +1,56 @@
 import { Form, FormikProps } from "formik";
 import isEmpty from "lodash.isempty";
-import React, { Component } from "react";
+import React, { Component, MouseEventHandler } from "react";
 import { oc } from "ts-optchain";
 import FieldSet from "../../../../components/form/fieldSet/fieldSet";
 import FormGroup from "../../../../components/form/formGroup/formGroup";
 import InlineInputs from "../../../../components/form/inlineInputs/inlineInputs";
 import FastInput from "../../../../components/form/input/fastInput/fastInput";
+import NormalInput from "../../../../components/form/input/normalInput/normalInput";
 import InputError from "../../../../components/form/inputError/inputError";
 import Label from "../../../../components/form/label/label";
 import Legend from "../../../../components/form/legend/legend";
+import ShowPassword from "../../../../components/form/showPassword/showPassword";
 import SubmitButton from "../../../../components/form/submitButton/submitButton";
 import SubmitError from "../../../../components/form/submitMessage/submitError/submitError";
 import SubmitSuccess from "../../../../components/form/submitMessage/submitSuccess/submitSuccess";
 import SubmitWarning from "../../../../components/form/submitMessage/submitWarning/submitWarning";
 import Loader from "../../../../components/loader/loader";
+import { UserRole } from "../../../../store/auth/types";
 import CedulaType from "../../../login/loginStudent/components/cedulaType/cedulaType";
-import { IStudentForm } from "../../students/addStudent/addStudent";
+import { IPersonalForm } from "../../personal/addPersonal/addPersonal";
 
-export interface IStudentFormStatus {
+export interface IPersonalFormStatus {
   error?: string;
   warning?: string;
   success?: string;
 }
 
-class StudentForm extends Component<FormikProps<IStudentForm>> {
+export interface IPersonalFormState {
+  showPassword: boolean;
+}
+
+class PersonalForm extends Component<
+  FormikProps<IPersonalForm>,
+  IPersonalFormState
+> {
+  state: IPersonalFormState = {
+    showPassword: false
+  };
+
+  onShowPassword: MouseEventHandler<HTMLInputElement> = () => {
+    this.setState(prevState => ({
+      showPassword: !prevState.showPassword
+    }));
+  };
+
   render() {
+    const { showPassword } = this.state;
     const { errors, touched, isSubmitting, dirty, status } = this.props;
 
     const safeErrors = oc(errors);
     const safeTouched = oc(touched);
-    const safeStatus = oc<IStudentFormStatus>(status);
-
+    const safeStatus = oc<IPersonalFormStatus>(status);
     return (
       <Form>
         {isSubmitting && <Loader />}
@@ -49,6 +69,7 @@ class StudentForm extends Component<FormikProps<IStudentForm>> {
 
         <FieldSet>
           <Legend>Información Basica</Legend>
+
           <FormGroup>
             <Label htmlFor={"nombre"}>Nombre</Label>
             <FastInput
@@ -149,12 +170,55 @@ class StudentForm extends Component<FormikProps<IStudentForm>> {
           </FormGroup>
         </FieldSet>
 
+        <FieldSet>
+          <Legend>Información de Inicio de Sesión</Legend>
+
+          <FormGroup>
+            <Label>Nombre de usuario</Label>
+            <FastInput
+              name={"nombreDeUsuario"}
+              id={"nombreDeUsuario"}
+              isinvalid={
+                safeErrors.nombreDeUsuario() && safeTouched.nombreDeUsuario()
+                  ? 1
+                  : 0
+              }
+            />
+            <InputError name={"nombreDeUsuario"} />
+          </FormGroup>
+
+          <FormGroup>
+            <Label htmlFor={"contraseña"}>
+              Contraseña
+              <ShowPassword onClick={this.onShowPassword} />
+            </Label>
+            <NormalInput
+              name={"contraseña"}
+              id={"contraseña"}
+              type={showPassword ? "text" : "password"}
+              isinvalid={
+                safeErrors.contraseña() && safeTouched.contraseña() ? 1 : 0
+              }
+            />
+            <InputError name={"contraseña"} />
+          </FormGroup>
+
+          <FormGroup>
+            <Label htmlFor={"rol"}>Tipo de Usuario</Label>
+            <FastInput name={"rol"} id={"rol"} component={"select"}>
+              <option value={UserRole.PROFESSOR}>{UserRole.PROFESSOR}</option>
+              <option value={UserRole.ARCHIVE}>{UserRole.ARCHIVE}</option>
+            </FastInput>
+            <InputError name={"rol"} />
+          </FormGroup>
+        </FieldSet>
+
         <SubmitButton disabled={isSubmitting || !isEmpty(errors) || !dirty}>
-          Agregar Estudiante
+          Agregar Miembro del Personal
         </SubmitButton>
       </Form>
     );
   }
 }
 
-export default StudentForm;
+export default PersonalForm;

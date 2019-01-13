@@ -9,54 +9,54 @@ import CardActions from "../../../components/card/cardActions/cardActions";
 import CardContent from "../../../components/card/cardContent/cardContent";
 import CardImg from "../../../components/card/cardImg/cardImg";
 import CardGrid from "../../../components/cardGrid/cardGrid";
-import Loader from "../../../components/loader/loader";
 import Modal from "../../../components/modal/modal";
 import ModalBody from "../../../components/modal/modalBody/modalBody";
 import ModalHeader from "../../../components/modal/modalHeader/modalHeader";
 import Pagination from "../../../components/pagination/pagination";
-import { StudentService } from "../../../services/student/student.service";
+import { PersonalService } from "../../../services/personal/personal.service";
 import {
-  IGetAllStudentsResponse,
-  IStudent
-} from "../../../services/student/types";
-import { IApiErrorResponse, IApiResponse } from "../../../services/types";
+  IGetAllPersonalsResponse,
+  IPersonal
+} from "../../../services/personal/types";
+import { IApiErrorResponse } from "../../../services/types";
 import { IApplicationState } from "../../../store";
 import CardItem from "../components/cardItem/cardItem";
+import Loader from "../patients/patients";
 
-export interface IStudentsMapStateToProps {
+export interface IPersonalMapStateToProps {
   token: string;
 }
 
-export interface IStudentsState {
+export interface IPersonalState {
   loading: boolean;
-  students: IStudent[];
+  personals: IPersonal[];
   page: number;
   startIndex: string | undefined;
-  currentStudents: IStudent[];
+  currentPersonal: IPersonal[];
   showModal: boolean;
   modalLoading: boolean;
   modalType: string;
   modalMessage: string;
 }
 
-export type IStudentPropsType = IStudentsMapStateToProps &
+export type PersonalPropsType = IPersonalMapStateToProps &
   RouteComponentProps &
   ComponentProps<any>;
 
-class Students extends Component<IStudentPropsType, IStudentsState> {
-  state: IStudentsState = {
+class Personal extends Component<PersonalPropsType, IPersonalState> {
+  state: IPersonalState = {
+    currentPersonal: [],
     loading: false,
     page: 1,
-    students: [],
+    personals: [],
     startIndex: undefined,
-    currentStudents: [],
     showModal: false,
     modalLoading: false,
     modalType: "",
     modalMessage: ""
   };
 
-  studentService = new StudentService(this.props.token);
+  personalService = new PersonalService(this.props.token);
 
   async componentDidMount(): Promise<any> {
     try {
@@ -64,15 +64,15 @@ class Students extends Component<IStudentPropsType, IStudentsState> {
         loading: true
       }));
 
-      const { students, startIndex } = await this.fetchStudents();
+      const { personals, startIndex } = await this.fetchPersonal();
 
-      const currentStudents = students.slice(0, 9);
+      const currentPersonal = personals.slice(0, 9);
 
       this.setState(() => ({
+        currentPersonal,
         loading: false,
-        students,
         startIndex,
-        currentStudents
+        personals
       }));
     } catch (error) {
       this.fetchError(error);
@@ -102,14 +102,28 @@ class Students extends Component<IStudentPropsType, IStudentsState> {
     }));
   };
 
-  fetchStudents = async (
+  fetchPersonal = async (
     startIndex?: string
-  ): Promise<IGetAllStudentsResponse> => {
-    const response: AxiosResponse<
-      IApiResponse<IGetAllStudentsResponse>
-    > = await this.studentService.getAllStudents(startIndex);
+  ): Promise<IGetAllPersonalsResponse> => {
+    const response = await this.personalService.getAllPersonals(startIndex);
 
     return response.data.data;
+  };
+
+  setCurrentPersonal = (page: number): void => {
+    const { personals } = this.state;
+
+    let currentPersonal: IPersonal[];
+
+    if (page === 1) {
+      currentPersonal = personals.slice(0, 9);
+    } else {
+      currentPersonal = personals.slice(9 * (page - 1), 9 * page);
+    }
+
+    this.setState(() => ({
+      currentPersonal
+    }));
   };
 
   onChangePage = async (pageNumber: number): Promise<any> => {
@@ -120,89 +134,76 @@ class Students extends Component<IStudentPropsType, IStudentsState> {
       loading: true
     }));
 
-    this.setCurrentPatients(pageNumber);
+    this.setCurrentPersonal(pageNumber);
 
     const {
-      students: currentStudents,
+      personals: currentPersonal,
       startIndex: currentStartIndex
     } = this.state;
 
-    const totalPages = Math.ceil(currentStudents.length / 9);
+    const totalPages = Math.ceil(currentPersonal.length / 9);
 
     if (pageNumber >= totalPages - 2 && currentStartIndex) {
-      const { students, startIndex } = await this.fetchStudents();
+      const { personals, startIndex } = await this.fetchPersonal();
 
       this.setState(prevState => ({
         startIndex,
-        students: [...prevState.students, ...students]
+        personals: [...prevState.personals, ...personals]
       }));
     }
 
-    this.setState(() => ({ loading: false }));
-  };
-
-  setCurrentPatients = (page: number): void => {
-    const { students } = this.state;
-
-    let currentStudents: IStudent[];
-
-    if (page === 1) {
-      currentStudents = students.slice(0, 9);
-    } else {
-      currentStudents = students.slice(9 * (page - 1), 9 * page);
-    }
-
     this.setState(() => ({
-      currentStudents
+      loading: false
     }));
   };
 
   removeStudentFromArray = (
-    studentId: string,
-    students: IStudent[]
-  ): IStudent[] => {
-    const studentIndex = students.findIndex(
-      student => student._id === studentId
+    personalId: string,
+    personals: IPersonal[]
+  ): IPersonal[] => {
+    const personalIndex = personals.findIndex(
+      personal => personal._id === personalId
     );
 
-    if (studentIndex > -1) {
-      return students
-        .slice(0, studentIndex)
-        .concat(students.slice(studentIndex + 1));
+    if (personalIndex > -1) {
+      return personals
+        .slice(0, personalIndex)
+        .concat(personals.slice(personalIndex + 1));
     } else {
-      return students;
+      return personals;
     }
   };
 
-  onDeleteStudent = (studentId: string = "") => async () => {
+  onDeletePersonal = (personalId: string = "") => async () => {
     try {
-      if (!studentId) return;
+      if (!personalId) return;
 
       this.setState(() => ({
         showModal: true,
         modalLoading: true
       }));
 
-      await this.studentService.removeStudent(studentId);
+      await this.personalService.removePersonal(personalId);
 
       this.setState(prevState => {
-        const students = this.removeStudentFromArray(
-          studentId,
-          prevState.students
+        const personals = this.removeStudentFromArray(
+          personalId,
+          prevState.personals
         );
 
-        const currentStudents = students.slice(
+        const currentPersonal = personals.slice(
           9 * (prevState.page - 1),
           9 * prevState.page
         );
 
         return {
           page: 1,
-          students,
-          currentStudents,
+          personals,
+          currentPersonal,
           modalLoading: false,
-          modalType: "Estudiante eliminado con exito",
-          modalMessage: "El estudiante ha sido eliminado del sistema con exito"
+          modalType: "Miembro del Personal eliminado con exito",
+          modalMessage:
+            "El Miembro del Personal ha sido eliminado del sistema con exito"
         };
       });
     } catch (error) {
@@ -218,22 +219,22 @@ class Students extends Component<IStudentPropsType, IStudentsState> {
     }));
   };
 
-  onClickAddStudent = (): void => {
+  onClickAddPersonal = (): void => {
     const { history } = this.props;
 
-    history.push("/dashboard/estudiantes/agregar");
+    history.push("/dashboard/personal/agregar");
   };
 
-  onClickModifyStudent = (studentId: string = "") => () => {
+  onClickModifyPersonal = (personalId: string = "") => () => {
     const { history } = this.props;
 
-    history.push(`/dashboard/estudiantes/${studentId}`);
+    history.push(`/dashboard/personal/${personalId}`);
   };
 
   render() {
     const {
       loading,
-      currentStudents,
+      currentPersonal,
       showModal,
       modalLoading,
       modalType,
@@ -258,32 +259,34 @@ class Students extends Component<IStudentPropsType, IStudentsState> {
         </Modal>
 
         <h2>
-          Estudiantes{" "}
-          <Button onClick={this.onClickAddStudent}>Agregar Estudiante</Button>
+          Personal
+          <Button onClick={this.onClickAddPersonal}>
+            Agregar Miembro del Personal
+          </Button>
         </h2>
 
         {loading && <Loader />}
 
-        {!currentStudents.length && !loading && (
-          <h3>No se encontro ningún estudiante</h3>
+        {!currentPersonal.length && !loading && (
+          <h3>No se encontro ningún mimebro del personal</h3>
         )}
 
         <CardGrid>
-          {!!currentStudents.length &&
-            currentStudents.map(student => (
-              <CardItem key={student._id}>
+          {!!currentPersonal.length &&
+            currentPersonal.map(personal => (
+              <CardItem key={personal._id}>
                 <CardContent>
                   <CardImg
                     src={profileIcon}
                     alt={"Imagen de perfil del usuario"}
                   />
-                  {student.nombre + " " + student.apellido}
+                  {personal.nombre + " " + personal.apellido}
                 </CardContent>
                 <CardActions>
-                  <Action onClick={this.onClickModifyStudent(student._id)}>
+                  <Action onClick={this.onClickModifyPersonal(personal._id)}>
                     Modificar
                   </Action>
-                  <Action onClick={this.onDeleteStudent(student._id)}>
+                  <Action onClick={this.onDeletePersonal(personal._id)}>
                     Eliminar
                   </Action>
                 </CardActions>
@@ -295,7 +298,7 @@ class Students extends Component<IStudentPropsType, IStudentsState> {
           <Pagination
             activePage={this.state.page}
             onChange={this.onChangePage}
-            totalItemsCount={this.state.students.length}
+            totalItemsCount={this.state.personals.length}
             itemsCountPerPage={9}
             pageRangeDisplayed={5}
           />
@@ -306,13 +309,13 @@ class Students extends Component<IStudentPropsType, IStudentsState> {
 }
 
 const mapStateToProps: MapStateToProps<
-  IStudentsMapStateToProps,
+  IPersonalMapStateToProps,
   {},
   IApplicationState
 > = state => ({
   token: state.auth.token
 });
 
-export default connect<IStudentsMapStateToProps, {}, {}, IApplicationState>(
+export default connect<IPersonalMapStateToProps, {}, {}, IApplicationState>(
   mapStateToProps
-)(Students);
+)(Personal);

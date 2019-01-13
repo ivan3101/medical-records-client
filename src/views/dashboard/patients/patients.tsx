@@ -266,6 +266,10 @@ class Patients extends Component<IPatientPropsType, IPatientsState> {
 
         {loading && <Loader />}
 
+        {!currentPatients.length && !loading && (
+          <h3>No se encontro ningún paciente</h3>
+        )}
+
         <CardGrid>
           {!!currentPatients.length &&
             currentPatients.map(patient => (
