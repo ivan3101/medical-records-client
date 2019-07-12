@@ -30,7 +30,14 @@ function* loginUserStudentFetch(
       tempPassword: action.payload.tempPassword
     });
 
-    const { estudiante, token } = response.data.data;
+    const {
+      estudiante,
+      token,
+      historiaMedica,
+      profesor,
+      triaje,
+      paciente
+    } = response.data.data;
 
     yield put(
       putLoginUserStudent(
@@ -39,7 +46,11 @@ function* loginUserStudentFetch(
           nombre: estudiante.nombre,
           apellido: estudiante.apellido
         },
-        token
+        token,
+        historiaMedica,
+        triaje,
+        profesor,
+        paciente
       )
     );
   } catch (error) {

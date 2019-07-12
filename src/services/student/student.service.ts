@@ -5,9 +5,12 @@ import { IApiResponse } from "../types";
 import {
   IAddStudentRequest,
   IGetAllStudentsResponse,
+  IGetFilteredStudentsResponse,
   IGetStudentByIdResponse,
-  IModifyStudentRequest
+  IModifyStudentRequest,
+  IStudent
 } from "./types";
+import { IFilteredResults } from "../../views/dashboard/assignPatient/assignPatient";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -57,5 +60,16 @@ export class StudentService extends Service {
   @bind
   removeStudent(studentIndex: string): AxiosPromise<IApiResponse> {
     return this.axios.delete(`/${studentIndex}`);
+  }
+
+  @bind
+  getFilteredStudents(
+    filterText: string
+  ): AxiosPromise<IApiResponse<IGetFilteredStudentsResponse>> {
+    return this.axios.get("/filter", {
+      params: {
+        matchText: filterText
+      }
+    });
   }
 }

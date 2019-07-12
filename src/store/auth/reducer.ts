@@ -6,6 +6,10 @@ const initialState: IAuthState = {
   isAuthenticated: false,
   role: undefined,
   user: undefined,
+  medicalRecord: undefined,
+  triage: undefined,
+  professor: undefined,
+  patient: undefined,
   redirectUrl: "/",
   token: ""
 };
@@ -39,6 +43,10 @@ const reducer: Reducer<
         ...state,
         redirectUrl: action.payload.redirectUrl
       };
+    }
+
+    case AuthActionTypes.PUT_LOGOUT: {
+      return initialState;
     }
 
     default: {

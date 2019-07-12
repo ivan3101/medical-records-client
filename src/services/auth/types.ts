@@ -1,8 +1,9 @@
 import { UserRole } from "../../store/auth/types";
 import { IMedicalRecord, IPatient, ITriage } from "../types";
+import { IPersonal } from "../personal/types";
 
 export interface IUser {
-  id: number;
+  id: string;
   nombre: string;
   apellido: string;
   rol?: UserRole;
@@ -33,4 +34,5 @@ export interface ILoginStudentResponse {
   paciente: IPatient;
   token: string;
   triaje: ITriage;
+  profesor: IPersonal;
 }

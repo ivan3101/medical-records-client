@@ -1,4 +1,5 @@
 import { UserRole } from "../../store/auth/types";
+import { IFilteredResults } from "../../views/dashboard/assignPatient/assignPatient";
 
 export interface IPersonal {
   active?: boolean;
@@ -33,4 +34,8 @@ export interface IGetPersonalByIdResponse {
 export interface IModifyPersonalRequest {
   personalId: string;
   personal: IPersonal;
+}
+
+export interface IGetFilteredPersonalResponse {
+  personal: Array<IFilteredResults<IPersonal>>;
 }

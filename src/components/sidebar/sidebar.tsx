@@ -7,10 +7,17 @@ export interface ISidebarProps {
 }
 
 const SidebarContainer = styled.nav`
-  ${tw`bg-secondary fixed p-6`};
+  ${tw`bg-secondary p-6 flex flex-col`};
 
-  width: 200px;
+  width: 100%;
   min-height: calc(100vh - 6rem);
+`;
+
+const Footer = styled.div`
+  margin-top: auto;
+  color: white;
+  font-size: 0.7rem;
+  text-align: center;
 `;
 
 const UnstyledSidebar: FunctionComponent<ISidebarProps> = ({
@@ -20,6 +27,14 @@ const UnstyledSidebar: FunctionComponent<ISidebarProps> = ({
   return (
     <SidebarContainer>
       <ul className={className}>{children}</ul>
+      <Footer>
+        <p>Escuela de Odontología</p>
+        <p>Escuela de Ingeniería</p>
+        <p>Universidad José Antonio Páez</p>
+        <p>&copy; 2019 Copyright</p>
+        <p>Ivan De Menezes</p>
+        <p>Jean Mobayed</p>
+      </Footer>
     </SidebarContainer>
   );
 };

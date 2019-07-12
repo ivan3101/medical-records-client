@@ -13,7 +13,7 @@ export interface IApiErrorResponse {
 
 export interface IMedicalRecord {
   active: boolean;
-  documento: Map<string, string>;
+  documento: Map<string, string> | object;
   fechaDeCreacion: Date;
   paciente: string;
 }
@@ -35,11 +35,11 @@ export interface IPatient {
 
 export interface ITriage {
   active: boolean;
-  documento: Map<string, string>;
+  documento: Map<string, string> | object;
   fechaDeCreacion: Date;
   numeroDeHistoria: {
     codigo: string;
     numero: number;
   };
-  paciente: string;
+  paciente: IPatient | string;
 }

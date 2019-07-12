@@ -5,9 +5,13 @@ import { IApiResponse, IPatient } from "../types";
 import {
   IAddPatientRequest,
   IGetAllPatientsResponse,
+  IGetFilteredPatientsResponse,
+  IGetMedicalRecordByPatient,
   IGetPatientByIdResponse,
+  IGetTriageByPatientResponse,
   IModifyPatientRequest
 } from "./types";
+import { IGetFilteredStudentsResponse } from "../student/types";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -57,5 +61,35 @@ export class PatientService extends Service {
     return this.axios.patch(`/${patient.patientId}`, {
       paciente: patient.paciente
     });
+  }
+
+  @bind
+  getFilteredPatients(
+    filterText: string
+  ): AxiosPromise<IApiResponse<IGetFilteredPatientsResponse>> {
+    return this.axios.get("/filter", {
+      params: {
+        matchText: filterText
+      }
+    });
+  }
+
+  @bind
+  getTriageByPatient(
+    patientId: string
+  ): AxiosPromise<IApiResponse<IGetTriageByPatientResponse>> {
+    return this.axios.get(`/${patientId}/triage`);
+  }
+
+  @bind
+  getMedicalRecordByPatient(
+    patientId: string
+  ): AxiosPromise<IApiResponse<IGetMedicalRecordByPatient>> {
+    return this.axios.get(`/${patientId}/medicalrecord`);
+  }
+
+  @bind
+  clone(patientId: string, data: any): AxiosPromise<IApiResponse> {
+    return this.axios.post(`/${patientId}/triage`, data);
   }
 }

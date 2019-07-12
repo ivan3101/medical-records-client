@@ -232,6 +232,12 @@ class Patients extends Component<IPatientPropsType, IPatientsState> {
     history.push(`/dashboard/pacientes/${patientId}`);
   };
 
+  onClickMedicalRecord = (patientId: string = "") => () => {
+    this.props.history.push(
+      `/dashboard/pacientes/${patientId}/historiaclinica`
+    );
+  };
+
   render() {
     const {
       loading,
@@ -287,6 +293,9 @@ class Patients extends Component<IPatientPropsType, IPatientsState> {
                   </Action>
                   <Action onClick={this.onDeletePatient(patient._id)}>
                     Eliminar
+                  </Action>
+                  <Action onClick={this.onClickMedicalRecord(patient._id)}>
+                    Historia Clinica
                   </Action>
                 </CardActions>
               </CardItem>

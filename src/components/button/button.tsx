@@ -1,7 +1,9 @@
+import { PropsWithoutRef } from "react";
 import styled from "styled-components/macro";
 import tw from "tailwind.macro";
 
-export interface IButton {
+export interface IButton
+  extends PropsWithoutRef<JSX.IntrinsicElements["button"]> {
   disabled?: boolean;
 }
 

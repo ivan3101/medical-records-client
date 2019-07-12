@@ -5,6 +5,7 @@ import { IApiResponse } from "../types";
 import {
   IAddPersonalRequest,
   IGetAllPersonalsResponse,
+  IGetFilteredPersonalResponse,
   IGetPersonalByIdRequest,
   IGetPersonalByIdResponse,
   IModifyPersonalRequest
@@ -58,5 +59,16 @@ export class PersonalService extends Service {
   @bind
   removePersonal(personalId: string): AxiosPromise<IApiResponse> {
     return this.axios.delete(`/${personalId}`);
+  }
+
+  @bind
+  getFilteredStudents(
+    filterText: string
+  ): AxiosPromise<IApiResponse<IGetFilteredPersonalResponse>> {
+    return this.axios.get("/filter", {
+      params: {
+        matchText: filterText
+      }
+    });
   }
 }

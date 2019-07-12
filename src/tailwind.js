@@ -380,7 +380,7 @@ module.exports = {
   |-----------------------------------------------------------------------------
   |
   | Here is where you define your border widths. Take note that border
-  | widths require a special "default" value set as well. This is the
+  | widths require a special "default" studentValue set as well. This is the
   | width that will be used when you do not specify a border width.
   |
   | Class name: .border{-side?}{-width?}
@@ -406,7 +406,7 @@ module.exports = {
   | color palette we defined above, however you're welcome to set these
   | independently if that makes sense for your project.
   |
-  | Take note that border colors require a special "default" value set
+  | Take note that border colors require a special "default" studentValue set
   | as well. This is the color that will be used when you do not
   | specify a border color.
   |
@@ -427,7 +427,7 @@ module.exports = {
   | is provided, it will be made available as the non-suffixed `.rounded`
   | utility.
   |
-  | If your scale includes a `0` value to reset already rounded corners, it's
+  | If your scale includes a `0` studentValue to reset already rounded corners, it's
   | a good idea to put it first so other values are able to override it.
   |
   | Class name: .rounded{-side?}{-size?}

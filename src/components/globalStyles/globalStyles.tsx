@@ -480,6 +480,10 @@ button,
 table {
   border-collapse: collapse;
 }
+
+body {
+  overflow: hidden;
+}
 `;
 
 export default GlobalStyles;

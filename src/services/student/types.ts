@@ -1,3 +1,5 @@
+import { IFilteredResults } from "../../views/dashboard/assignPatient/assignPatient";
+
 export interface IGetAllStudentsResponse {
   students: IStudent[];
   startIndex: string;
@@ -23,4 +25,8 @@ export interface IGetStudentByIdResponse {
 export interface IModifyStudentRequest {
   studentId: string;
   estudiante: IStudent;
+}
+
+export interface IGetFilteredStudentsResponse {
+  students: Array<IFilteredResults<IStudent>>;
 }

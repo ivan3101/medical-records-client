@@ -23,29 +23,31 @@ class Dashboard extends Component<IDashboardType> {
 
     return (
       <React.Fragment>
-        <Sidebar>
-          {!!routes.length &&
-            routes.map((route: IDashboardRoute) => (
-              <SidebarItem to={route.url} key={route.name}>
-                <Icon src={route.icon} />
-                {route.name}
-              </SidebarItem>
-            ))}
-        </Sidebar>
-
         <DashboardLayout>
-          <Switch>
+          <Sidebar>
             {!!routes.length &&
               routes.map((route: IDashboardRoute) => (
-                <Route
-                  path={route.url}
-                  component={route.component}
-                  key={route.url}
-                />
+                <SidebarItem to={route.url} key={route.name}>
+                  <Icon src={route.icon} />
+                  {route.name}
+                </SidebarItem>
               ))}
+          </Sidebar>
 
-            {!!routes.length && <Redirect to={routes[0].url} />}
-          </Switch>
+          <div style={{ padding: "3rem", overflowX: "auto" }}>
+            <Switch>
+              {!!routes.length &&
+                routes.map((route: IDashboardRoute) => (
+                  <Route
+                    path={route.url}
+                    component={route.component}
+                    key={route.url}
+                  />
+                ))}
+
+              {!!routes.length && <Redirect to={routes[0].url} />}
+            </Switch>
+          </div>
         </DashboardLayout>
       </React.Fragment>
     );
